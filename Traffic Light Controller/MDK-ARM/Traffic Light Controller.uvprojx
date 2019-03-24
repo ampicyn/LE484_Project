@@ -415,6 +415,11 @@
               <FileType>1</FileType>
               <FilePath>..\Src\bsp.c</FilePath>
             </File>
+            <File>
+              <FileName>Timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
