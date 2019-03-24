@@ -420,6 +420,11 @@
               <FileType>1</FileType>
               <FilePath>..\Src\Timer.c</FilePath>
             </File>
+            <File>
+              <FileName>ctrler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\ctrler.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
