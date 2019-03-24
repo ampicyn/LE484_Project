@@ -21,4 +21,4 @@ void HAL_IncTick(void);
 }
 #endif
 
-#endif 
+#endif /* __TIMER_H */
