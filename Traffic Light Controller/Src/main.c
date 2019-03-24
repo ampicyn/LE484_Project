@@ -23,7 +23,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <Stdio.h>
+#include <stdio.h>
+#include <bsp.h>
+#include <timer.h>
+#include <ctrler.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,7 +47,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+int B1 = 0;
+int B2 = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -58,6 +62,8 @@ static void MX_GPIO_Init(void);
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f){
 	return ITM_SendChar(ch);
+}
+Event_t Event_Detect(){				
 }
 /* USER CODE END 0 */
 
@@ -100,8 +106,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		printf("Hello World\n");
-		HAL_Delay(1000);
+		/*printf("Hello World\n");
+		HAL_Delay(1000);*/
+		Event_t evt = Event_Detect();   
+    uint32_t timeout_value = Ctrler_Exec(evt);
+    Timeout_Config(timeout_value);
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
