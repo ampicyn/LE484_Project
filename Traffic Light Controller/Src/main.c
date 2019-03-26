@@ -23,10 +23,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "ctrler.h"
+#include "bsp.h"
+#include "timer.h"
+#include "main.h"
 #include <stdio.h>
-#include <bsp.h>
-#include <timer.h>
-#include <ctrler.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,9 +64,10 @@ static void MX_GPIO_Init(void);
 int fputc(int ch, FILE *f){
 	return ITM_SendChar(ch);
 }
-Event_t Event_Detect(){
+Event_t Event_Detect(){				
 			Event_t evt = NO_EVT;
-			if(Timeout_Status){
+		if(MODE_READ() != SET){
+			if(Timeout_Status){	
 					evt = TIMEOUT;
 					Timeout_Status = 0;
 			}
@@ -74,7 +76,7 @@ Event_t Event_Detect(){
 					B1 = 0;
 					B2 = 0;
 			}
-			if(MODE_READ() == SET){
+		}else{
 			evt = MODE_CHANGE;
 			}
 			return evt;	
@@ -125,7 +127,7 @@ int main(void)
 		Event_t evt = Event_Detect();   
     uint32_t timeout_value = Ctrler_Exec(evt);
     Timeout_Config(timeout_value);
-    HAL_Delay(1000);
+    Delay(1);
   }
   /* USER CODE END 3 */
 }
@@ -185,7 +187,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, G_LAMP_Pin|Y_LAMP_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, Y_LAMP_Pin|G_LAMP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(R_LAMP_GPIO_Port, R_LAMP_Pin, GPIO_PIN_RESET);
@@ -193,14 +195,14 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, WALK_Pin|DWALK_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : MODE_SW_Pin */
-  GPIO_InitStruct.Pin = MODE_SW_Pin;
+  /*Configure GPIO pins : MODE_SW_Pin MIN_G_Pin W_I_Pin */
+  GPIO_InitStruct.Pin = MODE_SW_Pin|MIN_G_Pin|W_I_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(MODE_SW_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : G_LAMP_Pin Y_LAMP_Pin */
-  GPIO_InitStruct.Pin = G_LAMP_Pin|Y_LAMP_Pin;
+  /*Configure GPIO pins : Y_LAMP_Pin G_LAMP_Pin */
+  GPIO_InitStruct.Pin = Y_LAMP_Pin|G_LAMP_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -208,7 +210,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : B1_Pin B2_Pin */
   GPIO_InitStruct.Pin = B1_Pin|B2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -225,6 +227,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
@@ -245,20 +254,56 @@ void Error_Handler(void)
 }
 
 #ifdef  USE_FULL_ASSERT
+
+ 
+
 /**
+ 
+
   * @brief  Reports the name of the source file and the source line number
+ 
+
   *         where the assert_param error has occurred.
+ 
+
   * @param  file: pointer to the source file name
+ 
+
   * @param  line: assert_param error line source number
+ 
+
   * @retval None
+ 
+
   */
-void assert_failed(uint8_t *file, uint32_t line)
-{ 
-  /* USER CODE BEGIN 6 */
+ 
+
+void assert_failed(uint8_t* file, uint32_t line)
+ 
+
+{
+ 
+
   /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+ 
+
+     ex: printf('Wrong parameters value: file %s on line %d\r\n', file, line) */
+  /* Infinite loop */
+
+ 
+
+  while (1)
+ 
+
+  {
+ 
+
+  }
+ 
+
 }
+ 
+
 #endif /* USE_FULL_ASSERT */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

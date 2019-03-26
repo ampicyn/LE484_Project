@@ -60,20 +60,26 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define MODE_SW_Pin GPIO_PIN_3
 #define MODE_SW_GPIO_Port GPIOE
+#define MIN_G_Pin GPIO_PIN_4
+#define MIN_G_GPIO_Port GPIOE
+#define W_I_Pin GPIO_PIN_5
+#define W_I_GPIO_Port GPIOE
+#define Y_LAMP_Pin GPIO_PIN_2
+#define Y_LAMP_GPIO_Port GPIOC
 #define G_LAMP_Pin GPIO_PIN_4
 #define G_LAMP_GPIO_Port GPIOC
 #define B1_Pin GPIO_PIN_2
 #define B1_GPIO_Port GPIOB
+#define B1_EXTI_IRQn EXTI2_IRQn
 #define R_LAMP_Pin GPIO_PIN_14
 #define R_LAMP_GPIO_Port GPIOB
 #define B2_Pin GPIO_PIN_15
 #define B2_GPIO_Port GPIOB
+#define B2_EXTI_IRQn EXTI15_10_IRQn
 #define WALK_Pin GPIO_PIN_12
 #define WALK_GPIO_Port GPIOD
 #define DWALK_Pin GPIO_PIN_13
 #define DWALK_GPIO_Port GPIOD
-#define Y_LAMP_Pin GPIO_PIN_12
-#define Y_LAMP_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
