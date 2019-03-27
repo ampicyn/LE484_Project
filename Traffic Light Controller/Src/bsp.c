@@ -27,6 +27,7 @@ void Signal_Pass(void){
 	Delay(10);
 	x = 0;
 	}
+	printf("dont walk\n");
 }
 	DW_ON();
 	Delay(20);
@@ -51,6 +52,7 @@ void Signal_Block(void){
 		Delay(5);
 		
 		W_ON();
+	printf("walk\n");
 static int WTime = 0;
 			if(WALK_INTERVAL() == SET){
 					WTime = 20;
@@ -58,11 +60,9 @@ static int WTime = 0;
 			else {
 					WTime = 10;
 			}
-			Delay(WTime);
-		
+		Delay(WTime);
 		x = CONSTANT;
 }
-
 /** @brief  Flash YELLOW lamp
     @retval None
 */

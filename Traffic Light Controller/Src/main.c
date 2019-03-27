@@ -62,7 +62,7 @@ static void MX_GPIO_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f){
-	return ITM_SendChar(ch);
+		return ITM_SendChar(ch);
 }
 Event_t Event_Detect(){				
 			Event_t evt = NO_EVT;
@@ -122,8 +122,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		/*printf("Hello World\n");
-		HAL_Delay(1000);*/
 		Event_t evt = Event_Detect();   
     uint32_t timeout_value = Ctrler_Exec(evt);
     Timeout_Config(timeout_value);

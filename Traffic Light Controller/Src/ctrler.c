@@ -20,7 +20,7 @@ uint32_t Ctrler_Exec(Event_t evt)
 		}
 		static int Status =0;
 		static int Count=0;
-    uint32_t timeout_value = 0; //reset timeout		
+    uint32_t timeout_value = 0; 
     switch(Ctrler_State) {
         case RESTART:
 						if(evt == NO_EVT){
@@ -66,7 +66,7 @@ uint32_t Ctrler_Exec(Event_t evt)
 						
 				case BLOCKED:
 						if(evt == TIMEOUT){
-							printf("BLOCK STATE\n");
+						printf("BLOCK STATE\n");
 							Ctrler_State = THROUGH;
 							Signal_Block();
 						Status = 1;					
@@ -89,7 +89,7 @@ uint32_t Ctrler_Exec(Event_t evt)
 				
 				default:
 						if(evt == MODE_CHANGE){
-						printf("OUT_OF_SERVICE");
+						printf("OUT_OF_SERVICE \n");
             Ctrler_State = OUT_OF_SERVICE;
 						while(1){
 							Signal_Flash();
