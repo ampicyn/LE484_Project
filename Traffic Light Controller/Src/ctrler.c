@@ -39,10 +39,10 @@ uint32_t Ctrler_Exec(Event_t evt)
 							printf("Count = %d\n",Count);
 							int GTime= 0;
 			if(MIN_G() == SET){
-				GTime = 120;
+				GTime = 1200;
 			}
 			else {
-				GTime = 60;
+				GTime = 600;
 			}
 								if(Status == 1){
 									if(((Count*100)%GTime) == 0){
@@ -78,10 +78,10 @@ uint32_t Ctrler_Exec(Event_t evt)
 							printf("WAIT STATE \n");
 				int GTime= 0;
 			if(MIN_G() == SET){
-				GTime = 120;
+				GTime = 1200;
 			}
 			else {
-				GTime = 60;
+				GTime = 600;
 			}
 							timeout_value = GTime - ((Count%GTime)*100);
 							Ctrler_State = BLOCKED;

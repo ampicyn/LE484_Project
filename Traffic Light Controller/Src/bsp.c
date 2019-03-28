@@ -55,10 +55,10 @@ void Signal_Block(void){
 	printf("walk\n");
 static int WTime = 0;
 			if(WALK_INTERVAL() == SET){
-					WTime = 20;
+					WTime = 200;
 			}
 			else {
-					WTime = 10;
+					WTime = 100;
 			}
 		Delay(WTime);
 		x = CONSTANT;

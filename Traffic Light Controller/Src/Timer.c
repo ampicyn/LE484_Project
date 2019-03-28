@@ -31,8 +31,10 @@ void HAL_IncTick(void){
     static int Count = 0;
     Count = (Count+1)%100;
     if (Count == 0) {
-        Tick++;			
-			printf("Tick = %d\n",Tick);
+        Tick++;
+				if(Tick%10 == 0){
+			printf("Time = %d sec \n",Tick/10);
+				}
         if (Tick == Timeout_Value) {					
             Timeout_Status = 1;
 				}
